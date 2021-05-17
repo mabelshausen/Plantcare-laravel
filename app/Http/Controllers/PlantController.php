@@ -16,14 +16,15 @@ class PlantController extends Controller
     }
 
     public function add(Request $request) {
-        return Plant::create($request->all());
+        $plant = Plant::create($request->all());
+        return $plant->id;
     }
 
     public function edit(Request $request, $id) {
         $plant = Plant::findOrFail($id);
         $plant->update($request->all());
 
-        return $plant;
+        return $plant->id;
     }
 
     public function delete($id) {

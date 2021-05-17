@@ -16,14 +16,15 @@ class RoomController extends Controller
     }
 
     public function add(Request $request) {
-        return Room::create($request->all());
+        $room = Room::create($request->all());
+        return $room->id;
     }
 
     public function edit(Request $request, $id) {
         $room = Room::findOrFail($id);
         $room->update($request->all());
 
-        return $room;
+        return $room->id;
     }
 
     public function delete($id) {
