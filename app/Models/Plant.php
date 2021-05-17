@@ -9,5 +9,5 @@ class Plant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'sciName', 'age', 'room_id'];
+    protected $fillable = ['name', 'sciName', 'age', 'room_id', 'waterFreq', 'lastWatered'];
 }
