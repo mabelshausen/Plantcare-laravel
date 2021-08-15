@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Modules\Rooms\Services\RoomService;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
@@ -15,9 +16,14 @@ class RoomController extends Controller
         return Room::find($id);
     }
 
-    public function add(Request $request) {
-        $room = Room::create($request->all());
-        return $room->id;
+    public function add(Request $request, RoomService $service) {
+        $data = $request->all();
+        $result = $service->add($data);
+
+        if($service->hasErrors())
+            return response(['status' => 400, 'message' => 'Unable to add data', 'errors' => $service->getErrors() ]);
+
+        return $result;
     }
 
     public function edit(Request $request, $id) {
