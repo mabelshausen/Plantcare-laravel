@@ -12,10 +12,10 @@ class PlantService extends Service
     protected $rules = [
         "name" => "required",
         "sciName" => "required",
-        "age" => "required",
-        "room_id" => "required",
-        "waterFreq" => "required",
-        "lastWatered" => "required"
+        "age" => "required|numeric",
+        "room_id" => "required|numeric",
+        "waterFreq" => "required|numeric",
+        "lastWatered" => "required|before_or_equal:today"
     ];
 
     public function __construct(Plant $model)
