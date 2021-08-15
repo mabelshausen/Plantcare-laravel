@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plant;
+use App\Modules\Plants\Services\PlantService;
 use Illuminate\Http\Request;
 
 class PlantController extends Controller
@@ -15,16 +16,24 @@ class PlantController extends Controller
         return Plant::find($id);
     }
 
-    public function add(Request $request) {
-        $plant = Plant::create($request->all());
-        return $plant->id;
+    public function add(Request $request, PlantService $service) {
+        $data = $request->all();
+        $result = $service->add($data);
+
+        if($service->hasErrors())
+            return response(['status' => 400, 'message' => 'Unable to add data', 'errors' => $service->getErrors() ]);
+
+        return $result;
     }
 
-    public function edit(Request $request, $id) {
-        $plant = Plant::findOrFail($id);
-        $plant->update($request->all());
+    public function edit(Request $request, $id, PlantService $service) {
+        $data = $request->all();
+        $result = $service->edit($data, $id);
 
-        return $plant->id;
+        if($service->hasErrors())
+            return response(['status' => 400, 'message' => 'Unable to edit plant', 'errors' => $service->getErrors() ]);
+
+        return $result;
     }
 
     public function delete($id) {
