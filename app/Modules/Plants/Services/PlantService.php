@@ -14,7 +14,7 @@ class PlantService extends Service
         "sciName" => "required",
         "age" => "required",
         "room_id" => "required",
-        "water_freq" => "required",
+        "waterFreq" => "required",
         "lastWatered" => "required"
     ];
 
