@@ -29,4 +29,15 @@ class RoomService extends Service
         return $this->find($result->id);
     }
 
+    public function edit($data, $id){
+        $this->validate($data);
+        if($this->hasErrors())
+            return;
+
+        $room = $this->model->findOrFail($id);
+        $room->update($data);
+
+        return $room->id;
+    }
+
 }

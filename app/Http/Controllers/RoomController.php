@@ -26,11 +26,14 @@ class RoomController extends Controller
         return $result;
     }
 
-    public function edit(Request $request, $id) {
-        $room = Room::findOrFail($id);
-        $room->update($request->all());
+    public function edit(Request $request, $id, RoomService $service) {
+        $data = $request->all();
+        $result = $service->edit($data, $id);
 
-        return $room->id;
+        if($service->hasErrors())
+            return response(['status' => 400, 'message' => 'Unable to edit room', 'errors' => $service->getErrors() ]);
+
+        return $result;
     }
 
     public function delete($id) {
